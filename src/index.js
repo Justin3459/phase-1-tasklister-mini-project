@@ -11,10 +11,13 @@ function handleFormSubmit(e) {
   e.preventDefault()
   const task = e.target[0].value
   //const task = e.target["new-task-description"].value
-  displayTask(task)
+
+  const priorityLvl = parseInt(e.target.priority.value)
+
+  displayTask(task, priorityLvl)
 }
 
-function displayTask (task){
+function displayTask (task, priorityLvl){
 
   const taskUl = document.getElementById("tasks")
   const taskLi = document.createElement('li')
@@ -23,10 +26,20 @@ function displayTask (task){
   removeTask.textContent = "X"
   removeTask.addEventListener("click", deletefnc )
   taskLi.textContent = task + " "
+  taskLi.style.color = priorityColor(priorityLvl)
   taskLi.appendChild(removeTask)
   taskUl.appendChild(taskLi)
 }
 
 function deletefnc (e){
   e.target.parentNode.remove()
+}
+
+function priorityColor(priorityLvl){
+  if (priorityLvl === 1)
+    return "red"
+  else if (priorityLvl === 2)
+    return "yellow"
+  else
+    return "green"
 }
